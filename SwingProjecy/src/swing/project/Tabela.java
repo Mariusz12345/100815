@@ -61,4 +61,7 @@ public class Tabela extends AbstractTableModel {
 		this.data = newdata;
 		fireTableDataChanged();
 	}
+	public void zmienKolumne(int row) throws IndexOutOfBoundsException{
+		
+	}
 }

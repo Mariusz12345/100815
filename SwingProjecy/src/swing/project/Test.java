@@ -13,10 +13,15 @@ import javax.swing.JTextField;
 
 public class Test extends JFrame implements ActionListener {
 
+	private static final String USUN2 = "usun";
+
 	private static final long serialVersionUID = -646317234260742582L;
+	
 	private JTable table;
+	
 	private JTextField rowdata;
 	private JTextField rowdata2;
+	
 	private JButton dodaj;
 	private JButton usun;
 	private JButton zmien;
@@ -28,6 +33,7 @@ public class Test extends JFrame implements ActionListener {
 		setResizable(false);
 		setTitle("Klienci");
 		setLayout(null);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
 			initComponents();
@@ -36,6 +42,7 @@ public class Test extends JFrame implements ActionListener {
 			System.out.println("Blad ladowania komponentów:\n" + e.getMessage());
 			System.exit(-1);
 		}
+		
 		this.show();
 	}
 
@@ -44,6 +51,7 @@ public class Test extends JFrame implements ActionListener {
 		String nazwyKolumn[] = { "Nazwa", "Dane" };
 		table = new JTable(new Tabela(example_data, nazwyKolumn));
 		this.add(new JScrollPane(table));
+		
 		rowdata = new JTextField("Klient");
 		rowdata2 = new JTextField("dane1");
 
@@ -52,7 +60,7 @@ public class Test extends JFrame implements ActionListener {
 		dodaj.addActionListener(this);
 
 		usun = new JButton("Usuñ");
-		usun.setActionCommand("usun");
+		usun.setActionCommand(USUN2);
 		usun.addActionListener(this);
 
 		zmien = new JButton("Zmien");
@@ -91,13 +99,13 @@ public class Test extends JFrame implements ActionListener {
 		rowdata.setBounds(10 + rowdata_lab.getPreferredSize().width, 210, 100, 20);
 		rowdata2.setBounds(230 + rowdata_lab2.getPreferredSize().width, 210, 100, 20);
 
-		dodaj.setBounds(5, 235, dodaj.getPreferredSize().width, 25);
-
-		usun.setBounds(10 + dodaj.getPreferredSize().width, 235, usun.getPreferredSize().width, 25);
-
-		zmien.setBounds(145, 235, 100, 25);
+		dodaj.setBounds(5, 235, 100, 25);
 		
-		odczytaj.setBounds(250,235,100,25);
+		usun.setBounds(110, 235, 100, 25);
+
+		zmien.setBounds(215, 235, 100, 25);
+		
+		odczytaj.setBounds(320,235,100,25);
 
 	}
 
@@ -129,7 +137,8 @@ public class Test extends JFrame implements ActionListener {
 		}
 
 		// usuwanie
-		else if (e.getActionCommand().equalsIgnoreCase("usun")) {
+		else if (e.getActionCommand().equalsIgnoreCase(USUN2)) {
+				
 			int selected = table.getSelectedRow();
 			if (selected == -1)
 				return;
@@ -143,9 +152,18 @@ public class Test extends JFrame implements ActionListener {
 			}
 		}
 		// zmien
-		else if(e.getActionCommand().equals("zmien")){
-			
-		}
+		//else if()
+//		else if(e.getActionCommand().equalsIgnoreCase("zmien")){
+//			try{
+//				JOptionPane.showMessageDialog(this, "nie mozna zmienic");
+//				
+//			}
+//			catch(Exception ex){
+//				JOptionPane.showMessageDialog(this, "nie mozna zmienic"+ex.getMessage());
+//				return;
+//			}
+//			
+//		}
 
 	}
 }
