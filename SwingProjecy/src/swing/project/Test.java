@@ -20,6 +20,7 @@ public class Test extends JFrame implements ActionListener {
 	private JButton dodaj;
 	private JButton usun;
 	private JButton zmien;
+	private JButton odczytaj;
 
 	@SuppressWarnings("deprecation")
 	public Test() {
@@ -40,9 +41,9 @@ public class Test extends JFrame implements ActionListener {
 
 	private void initComponents() throws Exception {
 		Object[][] example_data = { { "Klient1", "dane1" }, { "Klient2", "dane1" }, { "Klient3", "dane1" } };
-
-		table = new JTable(new Tabela(example_data, 2));
-
+		String nazwyKolumn[] = { "Nazwa", "Dane" };
+		table = new JTable(new Tabela(example_data, nazwyKolumn));
+		this.add(new JScrollPane(table));
 		rowdata = new JTextField("Klient");
 		rowdata2 = new JTextField("dane1");
 
@@ -55,14 +56,21 @@ public class Test extends JFrame implements ActionListener {
 		usun.addActionListener(this);
 
 		zmien = new JButton("Zmien");
-		zmien.setActionCommand("change");
+		zmien.setActionCommand("zmien");
 		zmien.addActionListener(this);
+		
+		odczytaj = new JButton("Odczytaj");
+		odczytaj.setActionCommand("czytaj");
+		odczytaj.addActionListener(this);
 
 	}
 
 	private void addNPlaceComponents() {
+		
+
 		JScrollPane sp = new JScrollPane(table);
 		JLabel rowdata_lab = new JLabel("Dodaj klienta:");
+		JLabel rowdata_lab2 = new JLabel("Podaj dane:");
 
 		setLayout(null);
 
@@ -72,25 +80,29 @@ public class Test extends JFrame implements ActionListener {
 		add(dodaj);
 		add(usun);
 		add(zmien);
+		add(odczytaj);
 		add(rowdata_lab);
+		add(rowdata_lab2);
 
 		sp.setBounds(5, 5, 380, 200);
 		rowdata_lab.setBounds(5, 210, rowdata_lab.getPreferredSize().width, 20);
+		rowdata_lab2.setBounds(200, 220, rowdata_lab2.getPreferredSize().width, 12);
+
 		rowdata.setBounds(10 + rowdata_lab.getPreferredSize().width, 210, 100, 20);
-		rowdata2.setBounds(130 + rowdata_lab.getPreferredSize().width, 210, 100, 20);
+		rowdata2.setBounds(230 + rowdata_lab2.getPreferredSize().width, 210, 100, 20);
+
 		dodaj.setBounds(5, 235, dodaj.getPreferredSize().width, 25);
+
 		usun.setBounds(10 + dodaj.getPreferredSize().width, 235, usun.getPreferredSize().width, 25);
+
 		zmien.setBounds(145, 235, 100, 25);
+		
+		odczytaj.setBounds(250,235,100,25);
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		try {
-			if (e.getActionCommand().equalsIgnoreCase("change"))
-				;
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(this, "Nie mozna zmienic danych" + ex.getMessage());
-		}
-
+	
 		// dodawanie
 		if (e.getActionCommand().equalsIgnoreCase("dodaj")) {
 			if (rowdata.getText().equals("") && rowdata2.getText().equals("")) {
@@ -99,6 +111,7 @@ public class Test extends JFrame implements ActionListener {
 				return;
 			}
 			try {
+
 				Tabela model = (Tabela) table.getModel();
 				Object[] row = new Object[2];
 				row[0] = rowdata.getText();
@@ -107,12 +120,14 @@ public class Test extends JFrame implements ActionListener {
 				model.dodajKolumne(row);
 				rowdata.setText("");
 				rowdata2.setText("");
+
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(this, "Nie mo¿na dodaæ wiersza:\n" + ex.getMessage(), "B³¹d",
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
+
 		// usuwanie
 		else if (e.getActionCommand().equalsIgnoreCase("usun")) {
 			int selected = table.getSelectedRow();
@@ -126,6 +141,10 @@ public class Test extends JFrame implements ActionListener {
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+		}
+		// zmien
+		else if(e.getActionCommand().equals("zmien")){
+			
 		}
 
 	}
