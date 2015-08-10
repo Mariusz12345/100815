@@ -42,7 +42,7 @@ public class Tabela extends AbstractTableModel {
 		fireTableCellUpdated(row, col);
 	}
 
-	public void addRow(Object[] row) throws Exception {
+	public void dodajKolumne(Object[] row) throws Exception {
 		if (row.length != getColumnCount())
 			throw new Exception("Niew³aœciwe dane");
 		Object[][] newdata = new Object[data.length + 1][column];
@@ -55,7 +55,7 @@ public class Tabela extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 
-	public void delRow(int row) throws IndexOutOfBoundsException {
+	public void usunKolumne(int row) throws IndexOutOfBoundsException {
 		if (data.length == 0)
 			return;
 		Object[][] newdata = new Object[data.length - 1][column];
